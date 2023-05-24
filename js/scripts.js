@@ -1,31 +1,32 @@
 
 let apiURL = "https://randomuser.me/api/?results=12&nat=us";
-let employeeList = [];
+
 
 function getEmployees(url){
     return fetch(url)
-        .then(res => res.text())
+        .then(res => res.json())
         .catch(error => console.log('Something broke', error))
         // .then(data => data.map(person => new Employee(person.name, person.email, person.location)));
         .then(data => {
-            console.log(data);
-            let persons = generateEmployees(data.results);
-            data.results[0];
+            let employees = generateEmployees(data.results);
+            loadEmployees(employees);
         })
 }
 
+getEmployees(apiURL);
 
 //helper functions
 
-function generateEmployees(data){   // creates an array of employee class objects
-
+function generateEmployees(_data){   // creates an array of employee class objects
+    let employeeList = [];
+    let data = _data;
+    console.log(data);
     for(let i=0;i<data.length;i++){
-        employeeList.push(new Employee(`${data[i].name.first} ${data[i].name.last}`, data[i].email, data[i].location.city, data[i].location.state,
+        employeeList.push(new Employee(data[i].picture.medium, `${data[i].name.first} ${data[i].name.last}`, data[i].email, data[i].location.city, data[i].location.state,
             data[i].cell, combineAddress(data[i].location), formatBirthday(data[i].dob.date)));
     }
+    return employeeList;
 }
-
-console.log(employeeList);
 
 function formatBirthday(date){ // format: MM/DD/YYYY
     let _date = new Date(date);
@@ -63,20 +64,17 @@ class Employee {
 
 //call the fetch function
 
-getEmployees(apiURL);
+
 
 
 //load employees onto the page
-let gallery = document.getElementById('gallery');
+
 function loadEmployees(employeeList){
     let list = employeeList;
-    console.log(list);
-    let pop = list.pop();
-    console.log(pop);
-    // ){
-    //     console.log(employee);
-    //     gallery.insertAdjacentHTML('beforeend', buildContactCard(list[i]));
-    // }
+    let gallery = document.getElementById('gallery');
+    for (let i = 0; i<employeeList.length; i++){
+        gallery.insertAdjacentHTML('beforeend', buildContactCard(list[i]));
+    }
 
 }
 
@@ -88,7 +86,7 @@ function buildContactCard(employee){
     return `
     <div class="card">
         <div class="card-img-container">
-            <img class="card-img" src="https://placehold.it/90x90" alt="profile picture">
+            <img class="card-img" src="${employee.profileIMG}" alt="profile picture">
         </div>
         <div class="card-info-container">
             <h3 id="name" class="card-name cap">${employee.name}</h3>
