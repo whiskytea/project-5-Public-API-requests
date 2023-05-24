@@ -15,12 +15,11 @@ function getEmployees(url){
 
 getEmployees(apiURL);
 
-//helper functions
+//helper functions - API JSON
 
 function generateEmployees(_data){   // creates an array of employee class objects
     let employeeList = [];
     let data = _data;
-    console.log(data);
     for(let i=0;i<data.length;i++){
         employeeList.push(new Employee(data[i].picture.medium, `${data[i].name.first} ${data[i].name.last}`, data[i].email, data[i].location.city, data[i].location.state,
             data[i].cell, combineAddress(data[i].location), formatBirthday(data[i].dob.date)));
@@ -45,11 +44,11 @@ function formatBirthday(date){ // format: MM/DD/YYYY
 
 }
 
-function combineAddress(addr){
+function combineAddress(addr){ // does what it says on the tin
     return `${addr.street.number} ${addr.street.name}, ${addr.city}, ${addr.state}, ${addr.postcode}`
 }
 
-class Employee {
+class Employee { // employee class objects are a little extra here, but I like the easy access params
     constructor(profileIMG, name, email, city, state, cell, fullAddress, birthday) {
         this.profileIMG = profileIMG;
         this.name = name;
@@ -62,29 +61,44 @@ class Employee {
     }
 }
 
-//call the fetch function
-
-
-
-
-//load employees onto the page
-
-function loadEmployees(employeeList){
+function loadEmployees(employeeList){ //load employees onto the page
     let list = employeeList;
     let gallery = document.getElementById('gallery');
-    for (let i = 0; i<employeeList.length; i++){
+    for (let i = 0; i<employeeList.length; i++){ //first generate all the employee cards
         gallery.insertAdjacentHTML('beforeend', buildContactCard(list[i]));
     }
-
+    for (let i = 0; i<employeeList.length; i++){ //then cycle again and create the modals
+        gallery.insertAdjacentHTML('beforeend', buildModalCard(list[i]));
+    }
+    addCardEventListeners();
+    addModalDisplayListeners();
 }
 
+//helper functions - employee cards
 
+function addCardEventListeners() {
+    let cards = document.getElementsByClassName('card');
+    for (let i=0; i<cards.length; i++){
+        cards[i].addEventListener('click', function() {
+            // displayModal(cards[i].name);
+            // let id = cards[i].id;
+            displayModal(cards[i].id)
+        });
+    }
+}
 
-//helper functions
+function addModalDisplayListeners(){
+    let modalsCloseBtn = document.getElementsByClassName('modal-close-btn');
+    for (let i=0; i<modalsCloseBtn.length; i++){
+        modalsCloseBtn[i].addEventListener('click', function() {
+            modalsCloseBtn[i].parentNode.parentNode.style.display = "none";
+        });
+    }
+}
 
 function buildContactCard(employee){
     return `
-    <div class="card">
+    <div class="card" id="${employee.name}">
         <div class="card-img-container">
             <img class="card-img" src="${employee.profileIMG}" alt="profile picture">
         </div>
@@ -99,11 +113,11 @@ function buildContactCard(employee){
 
 function buildModalCard(employee){
     return `
-    <div class="modal-container">
+    <div class="modal-container" id="${employee.name}">
                 <div class="modal">
                     <button type="button" id="modal-close-btn" class="modal-close-btn"><strong>X</strong></button>
                     <div class="modal-info-container">
-                        <img class="modal-img" src="https://placehold.it/125x125" alt="profile picture">
+                        <img class="modal-img" src="${employee.profileIMG}" alt="profile picture">
                         <h3 id="name" class="modal-name cap">${employee.name}</h3>
                         <p class="modal-text">${employee.email}</p>
                         <p class="modal-text cap">${employee.state}</p>
@@ -113,11 +127,21 @@ function buildModalCard(employee){
                         <p class="modal-text">Birthday: ${employee.birthday}</p>
                     </div>
 
-                // IMPORTANT: Below is only for exceeds tasks 
                 <div class="modal-btn-container">
                     <button type="button" id="modal-prev" class="modal-prev btn">Prev</button>
                     <button type="button" id="modal-next" class="modal-next btn">Next</button>
                 </div>
             </div>
     `
+}
+
+function displayModal(id) { //finds the right modal to display
+    let modals = document.getElementsByClassName('modal-container');
+    let _id = id;
+    for (let i=0; i<modals.length; i++){
+        if (modals[i].id === _id){
+            modals[i].style.display = 'block';
+        }
+
+    }
 }
