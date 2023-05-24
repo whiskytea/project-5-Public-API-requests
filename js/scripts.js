@@ -72,6 +72,7 @@ function loadEmployees(employeeList){ //load employees onto the page
     }
     addCardEventListeners();
     addModalDisplayListeners();
+    addModalCarouselListeners();
 }
 
 //helper functions - employee cards
@@ -92,6 +93,23 @@ function addModalDisplayListeners(){
     for (let i=0; i<modalsCloseBtn.length; i++){
         modalsCloseBtn[i].addEventListener('click', function() {
             modalsCloseBtn[i].parentNode.parentNode.style.display = "none";
+        });
+    }
+}
+
+function addModalCarouselListeners(){
+    let modalPrev = document.getElementsByClassName('modal-prev');
+    let modalNext = document.getElementsByClassName('modal-next');
+    for (let i=1; i<modalPrev.length; i++){ //adds a "prev button" action to all modals after the 1st
+        modalPrev[i].addEventListener('click', function() {
+            modalPrev[i].parentNode.parentNode.parentNode.style.display = "none";
+            modalPrev[i-1].parentNode.parentNode.parentNode.style.display = "block";
+        });
+    }
+    for (let i=0; i<modalNext.length-1; i++){ //adds a "next button" action to all modals before the last
+        modalNext[i].addEventListener('click', function() {
+            modalNext[i].parentNode.parentNode.parentNode.style.display = "none";
+            modalNext[i+1].parentNode.parentNode.parentNode.style.display = "block";
         });
     }
 }
