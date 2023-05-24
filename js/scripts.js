@@ -71,7 +71,7 @@ function loadEmployees(employeeList){ //load employees onto the page
         gallery.insertAdjacentHTML('beforeend', buildModalCard(list[i]));
     }
     addCardEventListeners();
-    addModalDisplayListeners();
+    addModalCloseListeners();
     addModalCarouselListeners();
 }
 
@@ -88,7 +88,7 @@ function addCardEventListeners() {
     }
 }
 
-function addModalDisplayListeners(){
+function addModalCloseListeners(){
     let modalsCloseBtn = document.getElementsByClassName('modal-close-btn');
     for (let i=0; i<modalsCloseBtn.length; i++){
         modalsCloseBtn[i].addEventListener('click', function() {
