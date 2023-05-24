@@ -73,6 +73,8 @@ function loadEmployees(employeeList){ //load employees onto the page
     addCardEventListeners();
     addModalCloseListeners();
     addModalCarouselListeners();
+
+    createSearchBar();
 }
 
 //helper functions - employee cards
@@ -163,3 +165,43 @@ function displayModal(id) { //finds the right modal to display
 
     }
 }
+
+//helper functions --- search bar
+
+function createSearchBar(){
+    let searchBar = `
+    <form action="#" method="get">
+        <input type="search" id="search-input" class="search-input" placeholder="Search...">
+        <input type="submit" value="&#x1F50D;" id="search-submit" class="search-submit">
+    </form>
+    `;
+    let searchDiv = document.getElementsByClassName('search-container')[0];
+    searchDiv.insertAdjacentHTML('beforeend', searchBar);
+    let searchSubmit = document.getElementById('search-submit');
+    searchSubmit.addEventListener('click', function(e){
+        e.preventDefault();
+        displaySearchResults();
+    });
+}
+
+function displaySearchResults(){
+    let searchTerm = document.getElementById('search-input').value.toLowerCase();
+    let cards = document.getElementsByClassName('card');
+    if (searchTerm === ''){
+        for (let i=0; i<cards.length;i++){
+            cards[i].style.display = "flex";
+        }
+    }else{
+        console.log('test');
+        for (let i=0; i<cards.length;i++){
+            let cardID = cards[i].id.toLowerCase();
+            if (cardID.includes(searchTerm)){
+                cards[i].style.display = "flex";
+            }else{
+                cards[i].style.display = "none";
+            }
+        }
+    }
+
+}
+
