@@ -2,7 +2,8 @@
 let apiURL = "https://randomuser.me/api/?results=12&nat=us";
 
 
-function getEmployees(url){
+async function getEmployees(url){
+    let apiFetch = await fetch(url);
     return fetch(url)
         .then(res => res.json())
         .catch(error => console.log('Something broke', error))
@@ -172,7 +173,7 @@ function createSearchBar(){
     let searchBar = `
     <form action="#" method="get">
         <input type="search" id="search-input" class="search-input" placeholder="Search...">
-        <input type="submit" value="&#x1F50D;" id="search-submit" class="search-submit">
+        <input type="submit" value='      ' id="search-submit" class="search-submit">
     </form>
     `;
     let searchDiv = document.getElementsByClassName('search-container')[0];

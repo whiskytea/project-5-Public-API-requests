@@ -7,9 +7,7 @@
 /* Variables */
 
 :root {
-    --dark-purple: #60435f;
-    --purple: #d67ab1;
-    --pastel-purple: #e2a3c7;
+    --dark-grey: #220C10;
     --white: #fdf7fa;
     --contrast-teal: #a3dcd9;
 }
@@ -40,34 +38,36 @@ header {
 
 header h1 {
     font-size: 1.25em;
-    color: var(--pastel-purple);
+    color: var(--dark-grey);
     margin-top: 35px;
 }
 
 .search-input {
     padding: 0.4rem 1rem;
-    border: 1px solid rgba(200, 200, 200, 0.9);
+    border: 1px solid var(--contrast-teal);
     border-radius: 0.25rem 0 0 0.25rem ;
     max-width: 20rem;
     transition: .4s ease-out;
 }
 
 .search-input:active, .search-input:hover, .search-input:focus {
-    border: 1px solid rgba(50, 50, 50, 0.9);
+    border: 1px solid var(--dark-grey);
 }
 
 .search-submit {
     cursor: pointer;
     height: 33px;
-    background: rgba(245, 245, 245, 0.9);
+    background: url("../imgs/icons8-search-64.png") center/50% no-repeat;
+    background-color: var(--contrast-teal);
     border-radius: 0 0.25rem 0.25rem 0;
-    border: 1px solid rgba(200, 200, 200, 0.9);
+    border: 1px solid var(--contrast-teal);
     transition: .4s ease-out;
 }
 
 .search-submit:active, .search-submit:hover, .search-submit:focus {
-    background: rgba(255, 255, 255, 0.9);
-    border: 1px solid rgba(50, 50, 50, 0.9);
+    background: url("../imgs/icons8-search-64.png") center/50% no-repeat;
+    background-color: var(--contrast-teal);
+    border: 1px solid var(--dark-grey);
 }
 
 
@@ -95,11 +95,15 @@ header h1 {
     max-width: 360px;
     margin: 10px 10px 20px;
     padding: 10px;
-    background: rgba(245, 245, 245, 0.9);
+    background: var(--white);
     border-radius: 0.25em;
-    border: 1px solid rgba(50, 50, 50, 0.3);
+    border: 1px solid var(--contrast-teal);
     transition: .4s ease-out;
     overflow: hidden;
+}
+
+.card:focus, .card:hover, .card:active{
+    border: 1px solid var(--dark-grey);
 }
 
 .card-img {
@@ -118,7 +122,7 @@ header h1 {
 
 .card-text {
     font-size: 0.9em;
-    color: rgba(50, 50, 50, 0.7);
+    color: var(--dark-grey);
     margin: 7px auto;
     transition: .4s ease-out;
 }
@@ -149,9 +153,9 @@ header h1 {
     min-height: 415px;
     margin: 10px auto auto;
     padding-bottom: 15px;
-    background: rgba(255, 255, 255, 1);
+    background: var(--white);
     border-radius: 0.25em;
-    border: 1px solid rgba(100, 100, 100, 0.3);
+    border: 1px solid var(--contrast-teal);
     transition: .4s ease-out;
 }
 
@@ -160,10 +164,10 @@ header h1 {
     top: 15px;
     right: 15px;
     cursor: pointer;
-    color: rgba(255, 255, 255, 0.9);
-    background: rgba(0, 0, 0, 0.8);
+    color: var(--white);
+    background: var(--contrast-teal);
     border-radius: 0.25em;
-    border: 1px solid rgba(50, 50, 50, 0.3);
+    border: 1px solid var(--contrast-teal);
 }
 
 .modal-img {
@@ -177,14 +181,14 @@ header h1 {
 }
 
 .modal-text {
-    color: rgba(50, 50, 50, 0.7);
+    color: var(--dark-grey);
     margin: 10px;
 }
 
 .modal hr {
     width: 75%;
     margin: 25px auto 30px;
-    border-color: rgba(200, 200, 200, 0.2);
+    border-color: var(--contrast-teal);
 }
 
 .modal-btn-container {
@@ -196,9 +200,8 @@ header h1 {
     max-width: 420px;
     padding: 10px 15px 15px;;
     margin: 10px auto auto;
-    background: rgba(255, 255, 255, 1);
-    border-radius: 0.25em;
-    border: 1px solid rgba(100, 100, 100, 0.3);
+    background: var(--white);
+    color: var(--dark-grey);
 }
 
 
@@ -207,13 +210,18 @@ header h1 {
     cursor: pointer;
     font-size: 0.85em;
     text-transform: uppercase;
-    color: rgba(255, 255, 255, 0.9);
     padding: 0.75em 1.5em;
-    background: rgba(0, 0, 0, 0.8);
+    background: var(--contrast-teal);
     border-radius: 0.35em;
     transition: .4s ease-out;
   }
-  
+
+.btn{
+    border: 1px solid var(--contrast-teal);
+    color: var(--white)
+}
+
+
 
 /* ===================================== 
    Media Queries
@@ -255,16 +263,16 @@ header h1 {
 @media (min-width: 1024px) {
 
     .card:hover {
-        background: rgba(255, 255, 255, 1);
-        border: 1px solid rgba(50, 50, 50, 0.9);
+        background: var(--white);
+        border: 1px solid var(--dark-grey);
     }
 
     .card:hover .card-text {
-        color: rgba(25, 25, 25, 1); 
+        color: var(--contrast-teal);
     }
 
     .btn:hover {
-        background: rgba(255, 255, 255, 1);
-        color: rgba(25, 25, 25, 1); 
+        background: var(--dark-grey);
+        color: var(--contrast-teal);
     }
 }
