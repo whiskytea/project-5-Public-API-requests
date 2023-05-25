@@ -3,15 +3,10 @@ let apiURL = "https://randomuser.me/api/?results=12&nat=us";
 
 
 async function getEmployees(url){
-    let apiFetch = await fetch(url);
-    return fetch(url)
-        .then(res => res.json())
-        .catch(error => console.log('Something broke', error))
-        // .then(data => data.map(person => new Employee(person.name, person.email, person.location)));
-        .then(data => {
-            let employees = generateEmployees(data.results);
-            loadEmployees(employees);
-        })
+    let apiFetch = await fetch(url); //fetch the data
+    let apiJSON = await apiFetch.json(); //json the data
+    let employees = generateEmployees(apiJSON.results); //turn the data into employees
+    loadEmployees(employees); //add all the elements to the page
 }
 
 getEmployees(apiURL);
