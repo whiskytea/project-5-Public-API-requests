@@ -6,6 +6,7 @@ async function getEmployees(url){
     let apiFetch = await fetch(url); //fetch the data
     let apiJSON = await apiFetch.json(); //json the data
     let employees = generateEmployees(apiJSON.results); //turn the data into employees
+    console.log(apiJSON.results);
     loadEmployees(employees); //add all the elements to the page
 }
 
@@ -25,12 +26,12 @@ function generateEmployees(_data){   // creates an array of employee class objec
 
 function formatBirthday(date){ // format: MM/DD/YYYY
     let _date = new Date(date);
-    let month = _date.getMonth();
-    let day = _date.getDay();
+    let month = _date.getMonth()+1;
+    let day = _date.getDate();
 
     //fixes "6" to "06"
     if(month < 10){
-        month = `0${month}`
+        month = `0${month}`;
     }
     if(day < 10){
         day = `0${day}`
